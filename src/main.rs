@@ -1,23 +1,18 @@
 mod app;
 mod copy;
-mod exit_codes;
 
 use std::env;
 use std::process;
 
 use anyhow::{anyhow, Result};
 
-use crate::exit_codes::ExitCode;
-
-fn run() -> Result<ExitCode> {
+fn run() -> Result<bool> {
     let matches = app::build_app().get_matches_from(env::args_os());
     if let Some(ref matches) = matches.subcommand_matches("copy") {
-        return copy::run()
+        return copy::run();
     }
 
-    return Err(anyhow!(
-        "Hey",
-    ));
+    return Err(anyhow!("Hey",));
 }
 
 fn main() {
@@ -28,7 +23,7 @@ fn main() {
         }
         Err(err) => {
             eprintln!("[pbgopy error]: {:#}", err);
-            process::exit(ExitCode::GeneralError.into());
+            process::exit(1);
         }
     }
 }

@@ -5,11 +5,9 @@ use std::process;
 
 use anyhow::{anyhow, Result};
 
-use crate::exit_codes::ExitCode;
-
 const PBGOPY_SERVER_KEY: &str = "PBGOPY_SERVER";
 
-pub fn run() -> Result<ExitCode> {
+pub fn run() -> Result<bool> {
     let mut data = String::new();
     let stdin = io::stdin();
     let mut handle = stdin.lock();
@@ -27,8 +25,14 @@ pub fn run() -> Result<ExitCode> {
     handle.read_to_string(&mut data)?;
 
     let client = reqwest::blocking::Client::new();
-    let res = client.put(&address).body(data).send()?;
-    return Err(anyhow!("not implemented",));
+    let r = client.put(&address).body(data).send();
+    let r = match r {
+        Ok(res) => res,
+        Err(error) => {
+            return Err(anyhow!("failed to make a request: {:#}", error));
+        }
+    };
+    Ok(true)
 }
 
 /*
