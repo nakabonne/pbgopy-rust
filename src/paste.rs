@@ -1,6 +1,6 @@
 use std::env;
 use std::io;
-use std::io::prelude::*;
+use std::str;
 
 use anyhow::{anyhow, Result};
 
@@ -18,30 +18,13 @@ pub fn run() -> Result<bool> {
             ));
         }
     };
-
-    let mut data = String::new();
-    let stdin = io::stdin();
-    let mut handle = stdin.lock();
-    handle.read_to_string(&mut data)?;
-
-    let client = reqwest::blocking::Client::new();
-    let r = client.put(&address).body(data).send();
-    let _ = match r {
-        Ok(_) => (),
+    let res = reqwest::blocking::get(&address);
+    let mut res = match res {
+        Ok(r) => r,
         Err(err) => {
             return Err(anyhow!("failed to make a request: {:#}", err));
         }
     };
+    res.copy_to(&mut io::stdout())?;
     Ok(true)
 }
-
-/*
-struct CopyRunner {
-    password: String
-}
-impl CopyRunner {
-    fn encrypt(&self, String) -> String {
-
-    }
-}
-*/

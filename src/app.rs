@@ -18,14 +18,24 @@ pub fn build_app() -> App<'static, 'static> {
         );
 
     // Copy command
-    app = app.subcommand(SubCommand::with_name("copy")
-            .about("Copy from stdin")
-            .arg(Arg::with_name("password")
+    app = app.subcommand(
+        SubCommand::with_name("copy").about("Copy from stdin").arg(
+            Arg::with_name("password")
                 .help("Password to derive the symmetric-key to be used for encryption")
                 .short("p")
-                .long("password")
-            )
-        );
+                .long("password"),
+        ),
+    );
+
+    // Paste command
+    app = app.subcommand(
+        SubCommand::with_name("paste").about("Paste to stdout").arg(
+            Arg::with_name("password")
+                .help("Password to derive the symmetric-key to be used for decryption")
+                .short("p")
+                .long("password"),
+        ),
+    );
 
     app
 }
