@@ -5,7 +5,7 @@ use anyhow::Result;
 pub struct MemoryCache {}
 
 impl MemoryCache {
-    pub fn new() -> MemoryCache {
+    pub fn new() -> impl Cache {
         MemoryCache {}
     }
 }

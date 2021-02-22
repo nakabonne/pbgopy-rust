@@ -22,6 +22,7 @@ impl Cmd for Serve {
             Server::new(
                 |request, mut response| match (request.method(), request.uri().path()) {
                     (&Method::GET, "/") => {
+                        cache.get();
                         Ok(response.body("<h1>Hi!</h1><p>Hello Rust!</p>".as_bytes().to_vec())?)
                     }
                     (&Method::PUT, "/") => {
