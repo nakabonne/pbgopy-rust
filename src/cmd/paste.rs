@@ -13,7 +13,7 @@ pub struct Paste {
     // TODO: Make optional
     // TODO: Allow short.
     /// Password to derive the symmetric-key to be used for decryption
-    #[clap(long)]
+    #[clap(short, long, default_value = "")]
     password: String,
 }
 

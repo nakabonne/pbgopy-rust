@@ -1,11 +1,13 @@
 mod copy;
 mod paste;
+mod serve;
 
 use anyhow::Result;
 use clap::{AppSettings, Clap};
 
 pub use copy::Copy;
 pub use paste::Paste;
+pub use serve::Serve;
 
 const PBGOPY_SERVER_KEY: &str = "PBGOPY_SERVER";
 
@@ -24,6 +26,7 @@ pub trait Cmd {
 pub enum App {
     Copy(Copy),
     Paste(Paste),
+    Serve(Serve),
 }
 
 impl Cmd for App {
@@ -31,6 +34,7 @@ impl Cmd for App {
         match self {
             App::Copy(cmd) => cmd.run(),
             App::Paste(cmd) => cmd.run(),
+            App::Serve(cmd) => cmd.run(),
         }
     }
 }
