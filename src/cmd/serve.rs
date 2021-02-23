@@ -3,6 +3,7 @@ use super::Cmd;
 use crate::cache;
 
 use anyhow::Result;
+use bytes::Bytes;
 use clap::Clap;
 use simple_server::{Method, Server, StatusCode};
 
@@ -32,11 +33,14 @@ impl Cmd for Serve {
                     };
                 }
                 (&Method::PUT, "/") => {
-                    Ok(response.body("<h1>Hi!</h1><p>Hello Rust!</p>".as_bytes().to_vec())?)
+                    let b = Bytes::from(request.into_body());
+                    c.put(DATA_CACHE_KEY.to_string(), b, None);
+                    Ok(response.body("".as_bytes().to_vec())?)
                 }
+
                 (_, _) => {
                     response.status(StatusCode::NOT_FOUND);
-                    Ok(response.body("<h1>404</h1><p>Not found!<p>".as_bytes().to_vec())?)
+                    Ok(response.body("Not found".as_bytes().to_vec())?)
                 }
             }
         });
