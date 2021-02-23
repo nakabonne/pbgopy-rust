@@ -2,7 +2,6 @@ use super::{Cmd, PBGOPY_SERVER_KEY};
 
 use std::env;
 use std::io;
-use std::io::prelude::*;
 
 use anyhow::{anyhow, Result};
 use clap::Clap;

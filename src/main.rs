@@ -10,7 +10,8 @@ use clap::Clap;
 use std::io::{self, Write};
 use std::process;
 
-pub fn main() {
+#[tokio::main]
+async fn main() {
     if let Err(e) = App::parse().run() {
         match e.downcast::<SilentExit>() {
             Ok(SilentExit { code }) => process::exit(code),
