@@ -19,5 +19,6 @@ pub fn new_cache(kind: Kind) -> MemoryCache {
     /*match kind {
         MemoryCache => Box::new(MemoryCache::new()),
     }*/
-    MemoryCache::new()
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.block_on(async { MemoryCache::new() })
 }

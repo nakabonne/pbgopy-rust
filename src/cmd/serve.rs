@@ -35,7 +35,7 @@ impl Cmd for Serve {
                 (&Method::PUT, "/") => {
                     let b = Bytes::from(request.into_body());
                     c.put(DATA_CACHE_KEY.to_string(), b, None);
-                    Ok(response.body("".as_bytes().to_vec())?)
+                    Ok(response.body(Vec::new())?)
                 }
 
                 (_, _) => {
