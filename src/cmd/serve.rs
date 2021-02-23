@@ -19,6 +19,7 @@ pub struct Serve {
 
 impl Cmd for Serve {
     fn run(&self) -> Result<()> {
+        // TODO: Stop using simple_server and make it non-blocking server.
         let c = cache::new_cache(cache::Kind::MemoryCache);
         let server = Server::new(move |request, mut response| {
             match (request.method(), request.uri().path()) {
@@ -33,7 +34,6 @@ impl Cmd for Serve {
                     };
                 }
                 (&Method::PUT, "/") => {
-                    // FIXME: doesn't work well.
                     let b = Bytes::from(request.into_body());
                     c.put(DATA_CACHE_KEY.to_string(), b, None);
                     Ok(response.body(Vec::new())?)
