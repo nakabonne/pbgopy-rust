@@ -9,11 +9,9 @@ use clap::Clap;
 /// Paste to stdout
 #[derive(Clap, Debug)]
 pub struct Paste {
-    // TODO: Make optional
-    // TODO: Allow short.
-    /// Password to derive the symmetric-key to be used for decryption
-    #[clap(short, long, default_value = "")]
-    password: String,
+    // Password to derive the symmetric-key to be used for decryption
+//#[clap(short, long, option)]
+//password: String,
 }
 
 impl Cmd for Paste {

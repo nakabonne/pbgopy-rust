@@ -10,14 +10,10 @@ use clap::Clap;
 /// Copy from stdin
 #[derive(Clap, Debug)]
 pub struct Copy {
-    // TODO: Make optional
-    // TODO: Allow short.
-    /// Password to derive the symmetric-key to be used for encryption
-    #[clap(long)]
-    password: String,
+    // Password to derive the symmetric-key to be used for encryption
+//#[clap(long, short)]
+//password: String,
 }
-
-// TODO: Moduralize
 
 impl Cmd for Copy {
     fn run(&self) -> Result<()> {

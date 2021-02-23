@@ -33,6 +33,7 @@ impl Cmd for Serve {
                     };
                 }
                 (&Method::PUT, "/") => {
+                    // FIXME: doesn't work well.
                     let b = Bytes::from(request.into_body());
                     c.put(DATA_CACHE_KEY.to_string(), b, None);
                     Ok(response.body(Vec::new())?)
